@@ -13,7 +13,7 @@ def main():
 
     print("Players from FIN\n")
 
-    for player in [player for player in players if player.nationality == "FIN"]:
+    for player in sorted([player for player in players if player.nationality == "FIN"], key=lambda x: x.goals + x.assists, reverse=True):
         print(player)
 
 if __name__ == "__main__":
