@@ -61,13 +61,13 @@ class TennisGame:
         score = ""
         difference = self.player1_score - self.player2_score
         if difference == 1:
-            score = "Advantage player1"
+            score = f"Advantage {self.player1}"
         elif difference == -1:
-            score = "Advantage player2"
+            score = f"Advantage {self.player2}"
         elif difference >= 2:
-            score = "Win for player1"
+            score = f"Win for {self.player1}"
         else:
-            score = "Win for player2"
+            score = f"Win for {self.player2}"
         return score
 
     def stringify_uneven_score_at_most_forty(self):
