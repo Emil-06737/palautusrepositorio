@@ -14,12 +14,12 @@ class TennisGame:
     def get_score(self):
         score = ""
 
-        if self.player1_score == self.player2_score:
-            score = self.stringify_even_score()
-        elif self.player1_score > 40 or self.player2_score > 40:
-            score = self.stringify_uneven_score_above_forty()
+        if self.game_is_tied():
+            score = self.stringify_tied_score()
+        elif self.at_least_one_player_has_above_forty():
+            score = self.stringify_nontied_score_above_forty()
         else:
-            score = self.stringify_uneven_score_at_most_forty()
+            score = self.stringify_nontied_score_at_most_forty()
 
         return score
 
@@ -39,25 +39,21 @@ class TennisGame:
         else:
             self.player2_score += 1
 
-    def stringify(self, score):
-        if score == 0:
-            return "Love"
-        if score == 15:
-            return "Fifteen"
-        if score == 30:
-            return "Thirty"
-        if score == 40:
-            return "Forty"
+    def game_is_tied(self):
+        return self.player1_score == self.player2_score
 
-    def stringify_even_score(self):
+    def at_least_one_player_has_above_forty(self):
+        return self.player1_score > 40 or self.player2_score > 40
+
+    def stringify_tied_score(self):
         score = ""
         if self.player1_score < 40:
-            score = f"{self.stringify(self.player1_score)}-All"
+            score = f"{self.stringify_individual_score(self.player1_score)}-All"
         else:
             score = "Deuce"
         return score
 
-    def stringify_uneven_score_above_forty(self):
+    def stringify_nontied_score_above_forty(self):
         score = ""
         difference = self.player1_score - self.player2_score
         if difference == 1:
@@ -70,5 +66,15 @@ class TennisGame:
             score = f"Win for {self.player2}"
         return score
 
-    def stringify_uneven_score_at_most_forty(self):
-        return f"{self.stringify(self.player1_score)}-{self.stringify(self.player2_score)}"
+    def stringify_nontied_score_at_most_forty(self):
+        return f"{self.stringify_individual_score(self.player1_score)}-{self.stringify_individual_score(self.player2_score)}"
+
+    def stringify_individual_score(self, score):
+        if score == 0:
+            return "Love"
+        if score == 15:
+            return "Fifteen"
+        if score == 30:
+            return "Thirty"
+        if score == 40:
+            return "Forty"
