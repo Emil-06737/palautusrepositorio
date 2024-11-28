@@ -30,7 +30,7 @@ class IntJoukko:
         return False
 
     def poista(self, luku):
-        if luku not in self.lista:
+        if not self.kuuluu(luku):
             return False
         poistettavan_indeksi = self.lista.index(luku)
         self.paivita_lista_poiston_mukaiseksi(poistettavan_indeksi)
