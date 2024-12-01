@@ -4,8 +4,12 @@ class QueryBuilder:
     def __init__(self, matcher = matchers.All()):
         self.matcher_object = matcher
 
-    def one_of(self, matcher1, matcher2):
-        return QueryBuilder(matchers.And(matchers.Or(matcher1, matcher2), self.matcher_object))
+    def one_of(self, *matchers1):
+        or_matcher = matchers1[0]
+        for i in range(1, len(matchers1)):
+            or_matcher = matchers.Or(matchers1[i], or_matcher)
+
+        return QueryBuilder(matchers.And(or_matcher, self.matcher_object))
 
     def plays_in(self, team):
         return QueryBuilder(matchers.And(matchers.PlaysIn(team), self.matcher_object))
