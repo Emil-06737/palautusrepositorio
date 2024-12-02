@@ -20,5 +20,8 @@ class QueryBuilder:
     def has_fewer_than(self, value, attr):
         return QueryBuilder(matchers.And(matchers.HasFewerThan(value, attr), self.matcher_object))
 
+    def no(self, matcher):
+        return QueryBuilder(matchers.And(matchers.Not(matcher), self.matcher_object))
+
     def build(self):
         return self.matcher_object
